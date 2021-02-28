@@ -11,13 +11,11 @@ import dev.nmgalo.todoapp.db.AppDatabase
 import dev.nmgalo.todoapp.db.TodoEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
     private val items = ArrayList<TodoModel>()
-    private lateinit var adapter: TodoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +35,9 @@ class MainActivity : AppCompatActivity() {
 
 
         CoroutineScope(Dispatchers.IO).launch {
-            delay(1000)
             items.addAll(db.userDao().getAll().map { it.toUIModel() })
         }
-        adapter = TodoAdapter(items)
+        val adapter = TodoAdapter(items)
         adapter.notifyDataSetChanged()
         todoRecyclerView.adapter = adapter
     }
