@@ -1,5 +1,6 @@
 package dev.nmgalo.todoapp
 
 data class TodoModel(
-    val todoText: String
+    val todoText: String,
+    val todoDescription: String
 )
